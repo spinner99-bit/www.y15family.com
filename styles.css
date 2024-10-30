@@ -1,0 +1,998 @@
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-weight: 900;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0; /* 移除默认边距 */
+  margin-top: 80px;
+}
+
+body::before {
+  content: "";
+  position: fixed; /* 使用固定定位 */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('Element/Background.jpg');
+  background-size: cover; /* 确保背景覆盖整个视口 */
+  background-repeat: no-repeat;
+  background-position: center; /* 水平和垂直居中 */
+  z-index: -1; /* 确保背景在内容后面 */
+}
+
+@media (max-width: 768px) {
+  body::before {
+    background-image: url('Element/Background.jpg');
+    background-position: center; /* 水平和垂直居中 */
+  }
+}
+
+.headerDiv {
+  background-color: #fbbc04;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  padding: 4px 20px;
+  position: fixed; /* 使用 fixed 来固定在顶部 */
+  height: 60px;
+  top: 0; /* 确保在顶部 */
+  width: 100%; /* 确保宽度为100% */
+  z-index: 999; /* 低于侧边栏 */
+}
+
+.headerLeftMenu{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.menu-btn{
+  width: 40px;
+  height: 40px;
+  font-size: 35px; /* 根据需要调整 */
+  line-height: 40px; /* 设置为按钮高度 */
+  background-color: transparent;
+  border: none;
+  color: black;
+  border: 1px solid black;
+}
+
+.menu-btn:hover{
+  background-color: black;
+  color: white;
+}
+
+.headerLogoDiv{
+  text-align: center;
+  height: 50px;
+}
+
+.header img{
+  margin-top: 2px;
+  height: auto;
+  width: 50px;
+}
+
+.side-menu {
+  position: fixed;
+  left: -400px; /* 初始位置隐藏 */
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background-color: #fbbc04;
+  transition: left 0.3s;
+  box-shadow: 5px 0 20px rgba(0, 0, 0, 0.5);
+  z-index: 1000; /* 确保侧边栏在 header 之上 */
+}
+
+.sideMenuConta{
+  border-bottom: 1px solid black;
+}
+
+.side-menu li{
+  list-style: none;
+  text-align: left;
+  margin: 0;
+  width: 300px;
+  border-top: 1px solid black;
+}
+
+.side-menu a{
+  text-decoration: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: 900;
+  color: black;
+  display: flex;
+  width: 300px;
+}
+
+.side-menu a:hover {
+  background-color: black;
+  color: white;
+}
+
+.dropdown-container {
+  display: none;
+  background-color: black;
+}
+
+.dropdown-container li{
+  border: none;
+}
+
+.dropdown-container a{
+  color: white;
+  border-top: 1px solid #fbbc04;
+}
+
+.dropdown-container a:hover{
+  background-color: #fbbc04;
+  color: black;
+  border-top: 1px solid black;
+}
+
+.per-menu-row-cover {
+  display: flex;
+  align-items: center;
+}
+
+.per-menu-row-cover i{
+  font-size: 25px;
+  font-weight: 900;
+  margin-right: 10px;
+}
+
+.dropdown-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.bx-chevron-down, .bx-chevron-up {
+  margin-left: auto;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.siteLogBtn button{
+  padding: 4px 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 7px;
+}
+
+.footer-section {
+  position: absolute; /* 绝对定位以固定在侧边栏底部 */
+  bottom: 0; /* 离底部的距离 */
+  left: 0;
+  right: 0;
+  text-align: center; /* 居中对齐 */
+  padding: 10px; /* 内边距 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-image {
+  width: 80px;
+  height: auto; /* 自适应高度 */
+}
+
+.side-menu.open {
+  left: 0; /* 打开菜单时 */
+}
+
+.closeBtnDiv{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: transparent;
+}
+
+.close-btn {
+  background-color: transparent;
+  border: none;
+  color: black;
+  align-items: left;
+}
+
+.close-btn i{
+  font-size: 34px;
+}
+
+.siteLogBtn a{
+  text-decoration: none;
+}
+
+.logBtn, .WelBtn{
+  background-color: black;
+  color: #fbbc04;
+  margin-right: 7px;
+}
+
+.regBtn, .LogBtn{
+  background-color: red;
+  color: white;
+}
+
+.regBtn2{
+  color: white;
+}
+
+.logBtn2{
+  color: #fbbc04;
+}
+
+.profileDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.profileInfo{
+  text-align: center;
+  background-size: cover;
+  background-color: #fbbc04;
+  padding: 13px 10px;
+  border-radius: 30px;
+  box-shadow: 0 0 30px rgb(255, 0, 0);
+}
+
+.profileInfo h2{
+  color: #fbbc04;
+  font-weight: 900;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.profilwPerRow{
+  width: 400px;
+  padding: 8px 10px;
+  border: 1px solid #fbbc04;
+  align-items: center;
+  text-align: center;
+  color: #fbbc04;
+  margin: 5px 0;
+  background-color: black;
+}
+
+.profileLabel{
+  font-size: 16px;
+  background-color: transparent;
+  text-align: left;
+  padding: 2px 0 2px 10px;
+  color: black;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  background-color: #fbbc04;
+  margin-bottom: 6px;
+}
+
+.profilwPerRow i{
+  margin-right: 3px;
+  font-size: 22px;
+  align-items: center;
+  align-content: center;
+}
+
+.profilwPerRow span{
+  text-align: center;
+  padding: 2px 5px;
+  background-color: transparent;
+}
+
+.profilwPerRow input{
+  text-align: center;
+  padding: 2px 5px;
+  background-color: transparent;
+  color: white;
+  border: 2px solid #fbbc04;
+}
+
+#editFullName{
+  width: 200px;
+}
+
+#editWanumber, #editInstaID{
+  width: 200px;
+}
+
+.profileInfo button{
+  margin-top: 10px;
+  padding: 5px 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 7px;
+  background-color: red;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .profilwPerRow{
+    width: 320px;
+  }
+  }
+
+.loginContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.loginDiv2{
+  display: flex;
+  width: 800px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  border: 2px solid #fbbc04;
+  overflow: hidden;
+}
+
+.loginFormDiv3{
+  display: flex;
+  width: 100%;
+}
+
+.loginLeftSide{
+  background: linear-gradient(to bottom, #fbbc04, #fbbc04);
+  color: white;
+  padding: 10px;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.loginLeftH2{
+  color: black;
+}
+
+.loginDomainName{
+  color: black;
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.loginRightSide{
+  padding: 50px 30px;
+  width: 60%;
+  background-color: black;
+  text-align: center;
+}
+
+.loginRightH2{
+  color: white;
+  margin: 0 0 20px;
+}
+
+.loginRightSide label{
+  color: white;
+  display: block;
+  margin: 10px 0 5px;
+  text-align: left;
+}
+
+.loginRightSide input{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.loginSubmitBtn{
+  width: 100%;
+  padding: 10px;
+  background-color: #fbbc04;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.loginSubmitBtn:hover {
+  background-color: red;
+  color: white;
+}
+
+.loginFormContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.loginShowBtn{
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #fbbc04;
+  text-decoration: underline;
+  padding: 0;
+  font-size: 18px;
+}
+
+.loginShowBtn:hover {
+  color: red
+}
+
+.loginShowText{
+  margin-top: 10px;
+  color: white;
+}
+
+.loginErrorMessage{
+  margin-top: 10px;
+  color: red;
+}
+
+/* 当屏幕宽度小于 768px 时隐藏左侧设计 */
+@media (max-width: 768px) {
+  .loginLeftSide {
+    display: none;
+  }
+
+  /* 调整右侧部分占据整个屏幕宽度 */
+  .loginRightSide {
+    width: 100%;
+  }
+
+  .loginFormContainer {
+    padding: 20px;
+  }
+}
+
+.userlist-fullcover{
+  padding: 20px;
+}
+
+.userlist-report{
+  display: flex;
+  justify-content: space-evenly;
+  margin: 5px 0 20px 0;
+  padding: 0 10%;
+}
+
+.userlist-per-report{
+  justify-content: center;
+  text-align: center;
+  background-color: #fbbc04;
+  color: black;
+  padding: 2px;
+}
+
+.userlist-per-report p{
+  background-color: black;
+  color: white;
+  font-size: 14px;
+  padding: 5px 10px;
+}
+
+.user-List{
+  color: white;
+  font-size: 20px;
+  font-size: 12px;
+}
+
+.userlist-search-cover{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 0 30px;
+}
+
+.userlist-add-user-btn-cover button{
+  padding: 5px 15px;
+  background-color: #fbbc04;
+  border: none;
+  border-radius: 5px;
+}
+
+.userlist-left-contain{
+  align-items: center;
+  padding-left: 20px;
+}
+
+.userlist-left-contain h3{
+  font-size: 16px;
+  color: white;
+}
+
+.userlist-right-contain{
+  display: flex;
+  align-items: center;
+}
+
+.userlist-right-contain h3{
+  font-size: 14px;
+  color: white;
+  margin-right: 10px;
+}
+
+#searchInput{
+  width: 200px;
+  height: 25px;
+  padding: 0 5px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* 半透明黑色背景 */
+  z-index: 1000; /* 确保在最上层 */
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+/* 注册表单样式 */
+.form-popup {
+  background-color: white;
+  padding: 20px 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  z-index: 1001; /* 确保表单高于遮罩 */
+  width: 400px;
+}
+
+.form-popup h2{
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.form-popup input{
+  width: 100%;
+  padding: 5px 10px;
+  font-size: 18px;
+  font-weight: 900;
+  text-align: center;
+  margin: 5px;
+  border: none;
+  border-bottom: 3px solid black;
+}
+
+.form-popup input:focus{
+  outline: none;
+}
+
+.userlist-addUser-formBtn{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.userlist-addUser-formBtn button{
+  padding: 7px 20px;
+  font-weight: 900;
+  font-size: 16px;
+  border-radius: 20px;
+  border: none;
+}
+
+#closeForm{
+  background-color: red;
+  color: white;
+}
+
+.userList-addUser-submit{
+  background-color: #fbbc04;
+}
+
+#usersTable {
+  table-layout: fixed; /* 强制列宽 */
+  width: 100%; /* 设置表格总宽度 */
+  border-collapse: collapse; /* 合并边框，避免间隙 */
+}
+
+#usersTable th:nth-child(1) { width: 60px; }
+#usersTable th:nth-child(2) { width: 60px; }
+#usersTable th:nth-child(3) { width: 80px; }
+#usersTable th:nth-child(4) { width: 60px; }
+#usersTable th:nth-child(5) { width: 60px; }
+#usersTable th:nth-child(6) { width: 30px; }
+#usersTable th:nth-child(7) { width: 60px; }
+#usersTable th:nth-child(8) { width: 60px; }
+#usersTable th:nth-child(9) { width: 50px; }
+#usersTable th:nth-child(10) { width: 40px; }
+
+#usersTable td {
+  height: 100%;
+  border: 1px solid #fbbc04;
+  padding: 2px 5px;
+}
+
+#usersTable th{
+  background-color: #fbbc04;
+  color: black;
+  padding: 5px 0;
+  font-size: 14px;
+  border: 1px solid #fbbc04;
+}
+
+#usersTable th, #usersTable td {
+  text-align: center;
+  align-items: center;
+}
+
+.userlise-data textarea {
+  width: 100%;
+  background-color: transparent;
+  color: white;
+  height: 100%;
+  word-break: break-all;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  resize: none;
+  border: none;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+}
+
+.userlise-data select{
+  background-color: transparent;
+  color: white;
+}
+
+.userlise-data select:disabled {
+  background-color: transparent;
+  color: white;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+}
+
+.userlise-data option{
+  background-color: #fbbc04;
+  color: black;
+  text-align: center;
+}
+
+.edit-save-button {
+  background-color: #fbbc04;
+  color: black;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.edit-save-button:hover {
+  background-color: red;
+  color: white;
+}
+
+.paidReview-Cover{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.paidReview-Cover form {
+  width: 550px;
+  padding: 20px;
+  border: 2px solid #2d93d6;
+  border-radius: 25px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #f9f9f9;
+  font-weight: 900;
+}
+
+.paidReview-Per-form {
+  max-width: 500px;
+  margin: 20px auto;
+  display: grid;
+}
+
+.paidReview-Label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 900;
+  font-size: 22px;
+}
+
+.paidReview-Per-form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 16px;
+}
+
+.businessInfo-textarea{
+  width: 100%;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap; /* 防止文字换行 */
+  flex-basis: 30%; /* 每行容纳 3 个复选框 */
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
+}
+.checkbox-group input[type="checkbox"] {
+  display: none; /* 隐藏复选框 */
+}
+/* 选中时更改背景颜色 */
+.checkbox-group input[type="checkbox"]:checked + label {
+  background-color: #70b9eb; /* 浅蓝色背景 */
+}
+
+.contact-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-options i {
+  font-size: 36px;
+  cursor: pointer;
+  margin: 0 2px;
+  transition: color 0.3s;
+}
+
+.contacInfo-Input{
+  margin-left: 10px;
+}
+
+.whatsapp { color: #000; }
+.telegram { color: #000; }
+
+.paidReview-Cover button{
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 20px;
+  border: none;
+  background-color: #2d93d6;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .paidReview-Per-form {
+    max-width: 300px;
+  }
+
+  .paidReview-Label{
+    font-size: 16px;
+  }
+
+  .checkbox-group label {
+    font-size: 12px;
+  }
+
+  .paidReview-Per-form input[type="text"] {
+    font-size: 12px;
+  }
+
+  .businessInfo-textarea {
+    font-size: 12px;
+  }
+
+  .paidReview-Cover button {
+    font-size: 14px;
+  }
+
+}
+
+.upload-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.upload-wrapper form{
+  width: 550px;
+  padding: 20px 100px;
+  border: 2px solid #2d93d6;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #f9f9f9;
+  font-weight: 900;
+}
+
+.upload-per-row{
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.upload-wrapper input, .upload-wrapper textarea{
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.upload-wrapper input{
+  padding: 5px 10px;
+  text-align: center;
+}
+
+.upload-wrapper textarea{
+  width: 100%;
+  padding: 5px 10px;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.upload-attention{
+  font-weight: 900;
+  color: red;
+  margin-bottom: 20px;
+}
+
+.upload-wrapper button{
+  padding: 10px 20px;
+  font-size: 15px;
+  border-radius: 20px;
+  border: none;
+  background-color: #2d93d6;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .upload-wrapper form {
+    width: 350px;
+    padding: 20px;
+  }
+}
+
+.membersGallery-Top{
+  display: grid;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.membersGallery-Top-1{
+  color: #fbbc04;
+}
+
+.membersGallery-Top-2{
+  font-size: 22px;
+  margin-top: 10px;
+  color: white;
+}
+
+.membersGallery-Upload{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.membersGallery-Upload-Div h1{
+  color: white;
+  font-size: 26px;
+}
+
+.membersGallery-Upload-container{
+  margin: 15px 0;
+}
+
+.membersGallery-Upload-container input{
+  color: white;
+}
+
+.membersGallery-Upload-container button{
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 3px solid black;
+  background-color: #fbbc04;
+  color: black;
+}
+
+.memberGalarry-wrapper{
+  display: grid;
+  justify-content: center;
+  padding: 0 20px;
+  background-color: white;
+}
+
+#photoGallery {
+  display: flex;
+  flex-wrap: wrap; /* 允许卡片换行 */
+  justify-content: center;
+}
+
+.photo-card {
+  position: relative;
+  background-color: transparent;
+  border: 3px solid #fbbc04;
+  border-radius: 15px;
+  overflow: hidden;
+  width: 370px;
+  height: 370px;
+  margin: 10px;
+  color: #fff;
+  align-content: center;
+}
+
+.photo-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin-bottom: 30px;
+}
+
+.photo-card p {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #fbbc04;
+  color: black;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 1.1em;
+}
+
+@media (max-width: 768px) {
+  .photo-card{
+    width: 170px;
+    height: 170px;
+    margin: 5px;
+  }
+
+  .photo-card img{
+    margin-bottom: 18px;
+  }
+
+  .photo-card p{
+    padding: 4px 0;
+    font-size: 12px;
+  }
+}

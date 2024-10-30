@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MY PROFILE</title>
+  <link rel="shortcut icon" href="Element/logo.png">
+  <link rel="stylesheet"
+  href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="header">
+    <div class="headerDiv">
+      <div class="headerLeftMenu">
+        <button id="toggleMenu" class="menu-btn"><i class='bx bx-menu'></i></button>
+      </div>
+      <div class="siteLogBtn">
+        <button id="loginBtn" class="logBtn"><a href="login.html" class="logBtn2">LOG MASUK</a></button>
+        <button id="registerBtn" class="regBtn"><a href="login.html" class="regBtn2">BUAT AKAUN</a></button>
+        <button id="welcomeUser" class="WelBtn" style="display:none;">Username</button>
+        <button id="logoutBtn" class="LogBtn" style="display:none;">LOG KELUAR</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="sideMenu" class="side-menu">
+    <div class="closeBtnDiv">
+      <button id="closeMenu" class="close-btn"><i class='bx bx-left-arrow-alt'></i></button>
+    </div>
+    <div class="sideMenuConta">
+      <ul>
+        <li><a href="index">
+          <div class="per-menu-row-cover">
+            <i class='bx bxs-image'></i>
+            <p>MEMBERS GALLERY</p>
+          </div>
+        </a></li>
+        <li><a href="upload">
+          <div class="per-menu-row-cover">
+            <i class='bx bxs-cloud-upload'></i>
+            <p>UP GAMBAR & VIDEO KORANG DI IG KAMI</p>
+          </div>
+        </a></li>
+        <li class="dropdown-menu">
+          <a href="#" class="dropdown-btn">
+            <div class="per-menu-row-cover">
+              <i class='bx bx-support'></i>
+              <p>HUBUNGI KAMI</p>
+            </div>
+            <i class='bx bx-chevron-down'></i>
+          </a>
+          <div class="dropdown-container">
+            <ul class="dropdown-ul">
+              <li><a href="https://www.instagram.com/y15_family/profilecard/?igsh=MTljdzBxdGJ1Nmtzaw==">
+                <div class="per-menu-row-cover">
+                  <i class='bx bxl-instagram-alt'></i>
+                  <p>INSTAGRAM KAMI</p>
+                </div>
+              </a></li>
+              <li><a href="https://chat.whatsapp.com/LPouVKaIl6AB71RoZh4GMv">
+                <div class="per-menu-row-cover">
+                  <i class='bx bxl-whatsapp'></i>
+                  <p>WHATSAPP GROUP 1</p>
+                </div>
+              </a></li>
+              <li><a href="https://chat.whatsapp.com/KHc1jKwby8EABLqrRT08oM">
+                <div class="per-menu-row-cover">
+                  <i class='bx bxl-whatsapp'></i>
+                  <p>WHATSAPP GROUP 2</p>
+                </div>
+              </a></li>
+              <li><a href="https://whatsapp.com/channel/0029VaE3coJ7YSczNsY1h82q">
+                <div class="per-menu-row-cover">
+                  <i class='bx bx-money-withdraw'></i>
+                  <p>JUAL BELI BARANG</p>
+                </div>
+              </a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href="profile">
+          <div class="per-menu-row-cover">
+            <i class='bx bxs-wallet-alt'></i>
+            <p>AKAUN SAYA</p>
+          </div>
+        </a></li>
+        <li><a href="Paid-Review">
+          <div class="per-menu-row-cover">
+            <i class='bx bxs-bar-chart-alt-2'></i>
+            <p>PAID REVIEW</p>
+          </div>
+        </a></li>
+        <div id="adminSideBar" class="side-bar-admin" style="display: none;">
+          <li><a href="userlist">
+            <div class="per-menu-row-cover">
+              <i class='bx bxs-user-circle'></i>
+              <p>MANAGER USER</p>
+            </div>
+          </a></li>
+        </div>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <img src="Element/logo.png" class="footer-image">
+      <p>© 2024 Y15 FAMILY. All Rights Reserved.</p>
+    </div>
+  </div>
+
+
+  <div class="profileDiv">
+    <div id="profileInfo" class="profileContainer">
+
+      <div class="profileDiv">
+        <div id="profileInfo" class="profileContainer">
+          <div class="profileInfo">
+            <h2>MAKLUMAT SAYA</h2>
+            <div class="profilwPerRow">
+              <div class="profileLabel"><i class='bx bxs-user-circle'></i>Username</div>
+              <span id="username">0</span>
+            </div>
+            <div class="profilwPerRow">
+              <div class="profileLabel"><i class='bx bxs-lock'></i>Password</div>
+              <span id="password" style="display: inline-block;">********</span>
+              <input type="password" id="editPassword" class="editInput" style="display:none;">
+            </div>
+            <div class="profilwPerRow">
+              <div class="profileLabel"><i class='bx bx-id-card'></i>Nama Penuh</div>
+              <span id="fullName">0</span>
+              <input type="text" id="editFullName" class="editInput" style="display:none;">
+            </div>
+            <div class="profilwPerRow">
+              <div class="profileLabel"><i class='bx bxl-whatsapp-square'></i>Wasap Nombor</div>
+              <span id="wanumber">0</span>
+              <input type="text" id="editWanumber" class="editInput" style="display:none;">
+            </div>
+            <div class="profilwPerRow">
+              <div class="profileLabel"><i class='bx bxl-instagram-alt'></i>Instagram ID</div>
+              <span id="instaID">0</span>
+              <input type="text" id="editInstaID" class="editInput" style="display:none;">
+            </div>
+            <!-- 
+            <div class="profilwPerRow">
+              <div class="profileLabel"><i class='bx bxs-diamond'></i>Points Balance</div>
+              <span id="walletAmount" class="ProfileLabel">0</span>
+            </div> 
+            -->
+            <button id="editProfileBtn" class="profileEditBtn">Edit Profile</button>
+            <button id="saveProfileBtn" class="profileSaveBtn" style="display:none;">Save</button>
+          </div>
+        </div>
+      </div>
+
+  <script src="profile.js"></script>
+  
+</body>
+</html>
