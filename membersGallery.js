@@ -154,40 +154,98 @@ try {
 };
 
 async function loadPhotos() {
-const response = await fetch('https://script.google.com/macros/s/AKfycbwpwpeu41WfnNTmgYQbEGngBiDl4uw0Rd_IJyBUww7AqGOSOwTidDHpWJvqzA5paOn7/exec?action=getPhotos');
-const result = await response.json();
-
-const photoGallery = document.getElementById('photoGallery');
-photoGallery.innerHTML = ''; // 清空现有内容
-
-if (result.success) {
-result.data.forEach(photo => {
-  const photoContainer = document.createElement('div'); // 创建一个卡片容器
-  photoContainer.classList.add('photo-card'); // 添加样式类
-
-  const imgContainer = document.createElement('div'); // 创建图像容器
-  const img = document.createElement('img');
-  img.src = photo.url; // 使用照片 URL
-  img.alt = 'Uploaded Photo';
-  img.style.width = '100%'; // 设置图像宽度为100%以适应容器
-
-  imgContainer.appendChild(img); // 将图像添加到图像容器
-  photoContainer.appendChild(imgContainer); // 将图像容器添加到卡片容器
-
-  const captionContainer = document.createElement('div'); // 创建描述容器
-  const caption = document.createElement('p'); // 创建段落用于描述
-  caption.textContent = `IG : ${photo.description}`; // 设置描述和Instagram数据
-  caption.style.marginTop = '5px'; // 在描述上方添加一些空间
-
-  captionContainer.appendChild(caption); // 将描述添加到描述容器
-  photoContainer.appendChild(captionContainer); // 将描述容器添加到卡片容器
+    const response = await fetch('https://script.google.com/macros/s/AKfycbwpwpeu41WfnNTmgYQbEGngBiDl4uw0Rd_IJyBUww7AqGOSOwTidDHpWJvqzA5paOn7/exec?action=getPhotos');
+    const result = await response.json();
   
-  // 将卡片添加到画廊
-  photoGallery.appendChild(photoContainer);
-});
-} else {
-photoGallery.innerHTML = '<p>Please Refresh Again.</p>'; // 如果没有照片
-}
-}
-
-document.addEventListener('DOMContentLoaded', loadPhotos); // 页面加载时加载照片
+    const photoGallery = document.getElementById('photoGallery');
+    photoGallery.innerHTML = ''; // 清空现有内容
+  
+    if (result.success) {
+      result.data.forEach(photo => {
+        const photoContainer = document.createElement('div'); // 创建一个卡片容器
+        photoContainer.classList.add('photo-card'); // 添加样式类
+  
+        const imgContainer = document.createElement('div'); // 创建图像容器
+        const img = document.createElement('img');
+        img.src = photo.url; // 使用照片 URL
+        img.alt = 'Uploaded Photo';
+        img.style.width = '100%'; // 设置图像宽度为100%以适应容器
+  
+        // 点击照片时弹出图片
+        img.addEventListener('click', () => {
+          showPopup(photo.url); // 弹出图片
+        });
+  
+        imgContainer.appendChild(img); // 将图像添加到图像容器
+        photoContainer.appendChild(imgContainer); // 将图像容器添加到卡片容器
+  
+        const captionContainer = document.createElement('div'); // 创建描述容器
+        const caption = document.createElement('p'); // 创建段落用于描述
+        caption.textContent = `IG : ${photo.description}`; // 设置描述和Instagram数据
+        caption.style.marginTop = '5px'; // 在描述上方添加一些空间
+  
+        // 添加点击事件打开 Instagram 链接
+        caption.addEventListener('click', () => {
+          let instaID = photo.description.startsWith('@') ? photo.description.slice(1) : photo.description;
+          const instaURL = `https://www.instagram.com/${instaID}/profilecard/?igsh=MTljdzBxdGJ1Nmtzaw==`;
+          window.open(instaURL, '_blank'); // 在新标签页打开链接
+        });
+  
+        captionContainer.appendChild(caption); // 将描述添加到描述容器
+        photoContainer.appendChild(captionContainer); // 将描述容器添加到卡片容器
+  
+        // 将卡片添加到画廊
+        photoGallery.appendChild(photoContainer);
+      });
+    } else {
+      photoGallery.innerHTML = '<p>Please Refresh Again.</p>'; // 如果没有照片
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', loadPhotos); // 页面加载时加载照片
+  
+  // 弹出窗口显示图片的功能
+  function showPopup(url) {
+    // 检查是否已有弹窗，避免重复
+    if (document.getElementById('popup')) return;
+  
+    const popup = document.createElement('div');
+    popup.id = 'popup';
+    popup.style.position = 'fixed';
+    popup.style.top = '0';
+    popup.style.left = '0';
+    popup.style.width = '100vw';
+    popup.style.height = '100vh';
+    popup.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    popup.style.display = 'flex';
+    popup.style.alignItems = 'center';
+    popup.style.justifyContent = 'center';
+    popup.style.zIndex = '1000';
+  
+    // 阻止点击弹窗内的图片时关闭弹窗
+    popup.addEventListener('click', hidePopup);
+  
+    const img = document.createElement('img');
+    img.src = url;
+    img.style.maxWidth = '90%';
+    img.style.maxHeight = '90%';
+    img.style.zIndex = '1001';
+  
+    // 点击图片时阻止事件冒泡，避免关闭弹窗
+    img.addEventListener('click', event => {
+      event.stopPropagation();
+    });
+  
+    popup.appendChild(img);
+    document.body.appendChild(popup);
+  }
+  
+  // 隐藏弹窗的功能
+  function hidePopup() {
+    const popup = document.getElementById('popup');
+    if (popup) {
+      popup.remove();
+    }
+  }
+  
+  
