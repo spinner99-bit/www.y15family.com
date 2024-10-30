@@ -79,6 +79,29 @@ body::before {
   width: 50px;
 }
 
+.siteLogBtn a{
+  text-decoration: none;
+}
+
+.logBtn, .WelBtn{
+  background-color: black;
+  color: #fbbc04;
+  margin-right: 7px;
+}
+
+.regBtn, .LogBtn{
+  background-color: red;
+  color: white;
+}
+
+.regBtn2{
+  color: white;
+}
+
+.logBtn2{
+  color: #fbbc04;
+}
+
 .side-menu {
   position: fixed;
   left: -400px; /* 初始位置隐藏 */
@@ -207,29 +230,6 @@ body::before {
 
 .close-btn i{
   font-size: 34px;
-}
-
-.siteLogBtn a{
-  text-decoration: none;
-}
-
-.logBtn, .WelBtn{
-  background-color: black;
-  color: #fbbc04;
-  margin-right: 7px;
-}
-
-.regBtn, .LogBtn{
-  background-color: red;
-  color: white;
-}
-
-.regBtn2{
-  color: white;
-}
-
-.logBtn2{
-  color: #fbbc04;
 }
 
 .profileDiv{
