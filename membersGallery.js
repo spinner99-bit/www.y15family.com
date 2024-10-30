@@ -78,12 +78,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const newPath = currentPath.slice(0, -5);
         history.replaceState(null, '', newPath);
     }
-
-    // 如果用户是 admin，则显示管理侧边栏
-    const loggedInUser = localStorage.getItem("username");
-    if (loggedInUser === "admin") {
-        document.getElementById("adminSideBar").style.display = "block";
-    }
 });
 
 
