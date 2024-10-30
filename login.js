@@ -178,10 +178,4 @@ document.addEventListener('DOMContentLoaded', function() {
           const newPath = currentPath.slice(0, -5);
           history.replaceState(null, '', newPath);
       }
-    
-  // 判断用户是否为 admin
-  const loggedInUser = localStorage.getItem("username"); // 假设存储了用户名
-  if (loggedInUser === "admin") {
-      document.getElementById("adminSideBar").style.display = "block";
-  }
 });
