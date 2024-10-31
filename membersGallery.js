@@ -99,56 +99,61 @@ const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
 window.uploadPhoto = async function() {
-// 检查用户是否已登录
-const username = localStorage.getItem('username'); 
-const instaID = localStorage.getItem('instaID'); 
+  // 检查用户是否已登录
+  const username = localStorage.getItem('username'); 
+  const instaID = localStorage.getItem('instaID'); 
+  
+  if (!username || !instaID) {
+      alert('Sila Log Masuk Akaun Anda Untuk Post !');
+      return; // 用户未登录时直接返回
+  }
+  
+  const fileInput = document.getElementById('photoInput');
+  const file = fileInput.files[0];
+  const uploadBtn = document.getElementById('uploadBtn'); // 获取上传按钮
+  
+  if (!file) {
+      alert('Sila pilih foto anda !');
+      return;
+  }
+  
+  // 禁用上传按钮
+  uploadBtn.disabled = true;
+  uploadBtn.innerText = 'Uploading...';
+  
+  const storageRef = ref(storage, 'uploads/' + file.name);
+  try {
+      const snapshot = await uploadBytes(storageRef, file);
+      const photoUrl = await getDownloadURL(snapshot.ref);
 
-if (!username || !instaID) {
-    alert('Sila Log Masuk Akaun Anda Untuk Post !');
-    return; // 用户未登录时直接返回
-}
+      // 生成唯一的 uploadID
+      const timestamp = new Date().getTime();
+      const randomNum = Math.floor(Math.random() * 10000); // 随机数
+      const uploadID = `ID-${timestamp}-${randomNum}`;
 
-const fileInput = document.getElementById('photoInput');
-const file = fileInput.files[0];
-const uploadBtn = document.getElementById('uploadBtn'); // 获取上传按钮
-
-if (!file) {
-    alert('Sila pilih foto anda !');
-    return;
-}
-
-// 禁用上传按钮
-uploadBtn.disabled = true;
-uploadBtn.innerText = 'Uploading...';
-
-const storageRef = ref(storage, 'uploads/' + file.name);
-try {
-    const snapshot = await uploadBytes(storageRef, file);
-    const photoUrl = await getDownloadURL(snapshot.ref);
-
-    await fetch('https://script.google.com/macros/s/AKfycbx9tZ42upC3dYfxhZxA9Qiu15dTCyEWX9cxqCM0qgKLKaHQtX5rKMpzC7wTO15Ug14b/exec', {
-        method: 'POST',
-        mode: 'no-cors', 
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `action=uploadPhoto&username=${encodeURIComponent(username)}&instaID=${encodeURIComponent(instaID)}&photoUrl=${encodeURIComponent(photoUrl)}`
-    });
-
-    alert('Post foto anda telah berjaya !');
-    loadPhotos(); // 刷新图片画廊
-} catch (error) {
-    console.error('Upload failed:', error);
-    alert('Sila cuba sekali lagi !');
-} finally {
-    // 上传完成或失败后启用按钮
-    uploadBtn.disabled = false;
-    uploadBtn.innerText = 'POST';
-}
+      await fetch('https://script.google.com/macros/s/AKfycbxImwdncvOdQWZAOt85BQYzXNXcOz0DpBcKz4-CmpZR_ot5YFAq5AzqsZdgx-aP0f-p/exec', {
+          method: 'POST',
+          mode: 'no-cors', 
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `action=uploadPhoto&username=${encodeURIComponent(username)}&instaID=${encodeURIComponent(instaID)}&photoUrl=${encodeURIComponent(photoUrl)}&uploadID=${encodeURIComponent(uploadID)}`
+      });
+  
+      alert('Post foto anda telah berjaya !');
+      loadPhotos(); // 刷新图片画廊
+  } catch (error) {
+      console.error('Upload failed:', error);
+      alert('Sila cuba sekali lagi !');
+  } finally {
+      // 上传完成或失败后启用按钮
+      uploadBtn.disabled = false;
+      uploadBtn.innerText = 'POST';
+  }
 };
 
 async function loadPhotos() {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbwpwpeu41WfnNTmgYQbEGngBiDl4uw0Rd_IJyBUww7AqGOSOwTidDHpWJvqzA5paOn7/exec?action=getPhotos');
+    const response = await fetch('https://script.google.com/macros/s/AKfycbyrqBT-ewOOM1tgnPK8281SFXdr3kbVomArjUXMWNseFxuQUxx49-FGb8iWlMqXFrgH/exec?action=getPhotos');
     const result = await response.json();
   
     const photoGallery = document.getElementById('photoGallery');
