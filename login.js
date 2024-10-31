@@ -21,13 +21,31 @@ async function submitRegister() {
   const username = document.getElementById('registerUsername').value;
   const password = document.getElementById('registerPassword').value;
   const fullName = document.getElementById('registerFullName').value;
-  const wanumber = document.getElementById('registerWaNumber').value;
+  let wanumber = document.getElementById('registerWaNumber').value;
   let instaID = document.getElementById('registerInstagramID').value;
+
+  // 检查 Username 是否包含空格
+  if (username.includes(' ')) {
+    document.getElementById('registerMessage').textContent = 'Username tidak boleh mengandungi ruang.';
+    submitButton.disabled = false;
+    submitButton.textContent = 'Sign Up';
+    return;
+  }
 
   // 检查 Instagram ID 是否以 '@' 开头，如果没有则自动添加
   if (!instaID.startsWith('@')) {
     instaID = '@' + instaID;
     document.getElementById('registerInstagramID').value = instaID; // 更新输入框的值
+  }
+
+  // 检查 waNumber 开头并进行修改
+  if (wanumber.startsWith('1')) {
+    wanumber = '60' + wanumber; // 如果以1开头，添加60
+  } else if (wanumber.startsWith('0')) {
+    wanumber = '6' + wanumber.substring(1); // 如果以0开头，添加6并去掉前面的0
+  } else if (!wanumber.startsWith('6')) {
+    // 如果不是以6开头的其他情况，可以根据需要处理
+    console.warn('Wasap number must start with 6, 0, or 1.');
   }
 
   try {
