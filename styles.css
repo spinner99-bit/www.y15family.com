@@ -39,7 +39,6 @@ body {
   background-color: transparent;
   border: none;
   color: black;
-  border: 1px solid black;
 }
 
 .menu-btn:hover{
@@ -52,33 +51,24 @@ body {
   height: 50px;
 }
 
-.header img{
-  margin-top: 2px;
-  height: auto;
-  width: 50px;
-}
-
-.siteLogBtn a{
+.siteLogBtn{
+  display: flex;
+  align-items: center;
   text-decoration: none;
+  color: black;
 }
 
-.logBtn, .WelBtn{
-  background-color: black;
-  color: #fbbc04;
-  margin-right: 7px;
+.siteLogBtn button{
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 900;
 }
 
-.regBtn, .LogBtn{
-  background-color: red;
-  color: white;
-}
-
-.regBtn2{
-  color: white;
-}
-
-.logBtn2{
-  color: #fbbc04;
+.siteLogBtn i{
+  font-size: 30px;
+  margin-left: 5px;
 }
 
 .side-menu {
@@ -147,7 +137,6 @@ body {
 
 .per-menu-row-cover i{
   font-size: 25px;
-  font-weight: 900;
   margin-right: 10px;
 }
 
@@ -162,13 +151,6 @@ body {
   margin-left: auto;
   font-size: 25px;
   font-weight: 900;
-}
-
-.siteLogBtn button{
-  padding: 4px 10px;
-  cursor: pointer;
-  border: none;
-  border-radius: 7px;
 }
 
 .footer-section {
