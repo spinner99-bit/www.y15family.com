@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const logoutBtn = document.getElementById("logoutBtn");
     const username = localStorage.getItem("username"); 
     const walletAmount = localStorage.getItem("walletAmount");
+    const fileInput = document.getElementById('photoInput');
+    fileInput.addEventListener('change', previewPhoto);
 
     // 检测登录状态
     if (username) {
@@ -80,6 +82,31 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+function previewPhoto() {
+  const fileInput = document.getElementById('photoInput');
+  const previewImage = document.getElementById('photoPreview');
+
+  if (fileInput.files && fileInput.files[0]) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      previewImage.src = e.target.result; // 设置预览图片的src
+      previewImage.style.display = 'block'; // 显示预览图片
+    };
+
+    reader.readAsDataURL(fileInput.files[0]); // 读取文件
+  } else {
+    previewImage.style.display = 'none'; // 隐藏预览图片
+  }
+}
+
+// membersGallery.js
+function toggleUpload() {
+  const uploadOverlay = document.getElementById('uploadOverlay');
+  uploadOverlay.style.display = uploadOverlay.style.display === 'none' ? 'flex' : 'none';
+}
+
+window.toggleUpload = toggleUpload; // 将函数绑定到全局对象
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
@@ -153,98 +180,96 @@ window.uploadPhoto = async function() {
 };
 
 async function loadPhotos() {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbyrqBT-ewOOM1tgnPK8281SFXdr3kbVomArjUXMWNseFxuQUxx49-FGb8iWlMqXFrgH/exec?action=getPhotos');
+  try {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbxUPPkUrKRcgnau1utszmiBEbb-RJK6q8Fg2gZZHGwI-TMlMvsRBBkEBJFwgYoZgify/exec?action=getPhotos');
     const result = await response.json();
-  
+
     const photoGallery = document.getElementById('photoGallery');
-    photoGallery.innerHTML = ''; // 清空现有内容
-  
+    photoGallery.innerHTML = '';
+
     if (result.success) {
       result.data.forEach(photo => {
-        const photoContainer = document.createElement('div'); // 创建一个卡片容器
-        photoContainer.classList.add('photo-card'); // 添加样式类
-  
-        const imgContainer = document.createElement('div'); // 创建图像容器
-        const img = document.createElement('img');
-        img.src = photo.url; // 使用照片 URL
-        img.alt = 'Uploaded Photo';
-        img.style.width = '100%'; // 设置图像宽度为100%以适应容器
-  
-        // 点击照片时弹出图片
-        img.addEventListener('click', () => {
-          showPopup(photo.url); // 弹出图片
-        });
-  
-        imgContainer.appendChild(img); // 将图像添加到图像容器
-        photoContainer.appendChild(imgContainer); // 将图像容器添加到卡片容器
-  
-        const captionContainer = document.createElement('div'); // 创建描述容器
-        const caption = document.createElement('p'); // 创建段落用于描述
-        caption.textContent = `IG : ${photo.description}`; // 设置描述和Instagram数据
-        caption.style.marginTop = '5px'; // 在描述上方添加一些空间
-  
-        // 添加点击事件打开 Instagram 链接
-        caption.addEventListener('click', () => {
-          let instaID = photo.description.startsWith('@') ? photo.description.slice(1) : photo.description;
+        const photoContainer = document.createElement('div');
+        photoContainer.classList.add('photo-card');
+
+        const topSection = document.createElement('div');
+        topSection.classList.add('top-section');
+
+        const userIcon = document.createElement('img');
+        userIcon.src = 'Element/logo.png';
+        userIcon.alt = 'User Icon';
+        userIcon.classList.add('user-icon'); // 添加样式类以控制图片大小和样式
+        topSection.appendChild(userIcon);
+
+        const username = document.createElement('span');
+        username.textContent = photo.username;
+        topSection.appendChild(username);
+
+        // 处理 Instagram ID，删除开头的 @ 符号
+        let instaID = photo.description;
+        if (instaID.startsWith('@')) {
+          instaID = instaID.substring(1); // 删除开头的 @ 符号
+        }
+
+        const instaIcon = document.createElement('i');
+        instaIcon.classList.add('bx', 'bxl-instagram-alt');
+        instaIcon.addEventListener('click', () => {
           const instaURL = `https://www.instagram.com/${instaID}/profilecard/?igsh=MTljdzBxdGJ1Nmtzaw==`;
-          window.open(instaURL, '_blank'); // 在新标签页打开链接
+          window.open(instaURL, '_blank');
         });
-  
-        captionContainer.appendChild(caption); // 将描述添加到描述容器
-        photoContainer.appendChild(captionContainer); // 将描述容器添加到卡片容器
-  
-        // 将卡片添加到画廊
+        topSection.appendChild(instaIcon);
+        photoContainer.appendChild(topSection);
+
+        const img = document.createElement('img');
+        img.src = photo.url;
+        img.alt = 'Uploaded Photo';
+        img.classList.add('photo-image');
+        img.addEventListener('click', () => {
+          showPopup(photo.url);
+        });
+        photoContainer.appendChild(img);
+
+        const bottomSection = document.createElement('div');
+        bottomSection.classList.add('bottom-section');
+
+        const shareIcon = document.createElement('i');
+        shareIcon.classList.add('bx', 'bxs-share');
+        shareIcon.addEventListener('click', () => {
+          navigator.clipboard.writeText(window.location.href);
+          alert('Link copied to clipboard!');
+        });
+        bottomSection.appendChild(shareIcon);
+
+        // 格式化上传日期为 DD-MM-YYYY HH:mm:ss
+        const uploadDate = document.createElement('span');
+        const dateParts = photo.uploadDate.split(' ');
+        const [day, month, year] = dateParts[0].split('-');
+        const formattedDateStr = `${year}-${month}-${day}T${dateParts[1]}`; // 转换为标准格式
+
+        const date = new Date(formattedDateStr);
+        if (isNaN(date.getTime())) {
+          // 如果 date 是无效的，给出默认值或处理逻辑
+          uploadDate.textContent = 'Invalid date';
+        } else {
+          const formattedDate = `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`;
+          uploadDate.textContent = formattedDate;
+        }
+        bottomSection.appendChild(uploadDate);
+
+        photoContainer.appendChild(bottomSection);
         photoGallery.appendChild(photoContainer);
       });
     } else {
-      photoGallery.innerHTML = '<p>Please Refresh Again.</p>'; // 如果没有照片
+      console.error('Failed to load photos:', result);
+      photoGallery.innerHTML = '<p>Please Refresh Again.</p>';
     }
+  } catch (error) {
+    console.error('Error fetching photos:', error); // 捕捉和显示任何错误
   }
-  
-  document.addEventListener('DOMContentLoaded', loadPhotos); // 页面加载时加载照片
-  
-  // 弹出窗口显示图片的功能
-  function showPopup(url) {
-    // 检查是否已有弹窗，避免重复
-    if (document.getElementById('popup')) return;
-  
-    const popup = document.createElement('div');
-    popup.id = 'popup';
-    popup.style.position = 'fixed';
-    popup.style.top = '0';
-    popup.style.left = '0';
-    popup.style.width = '100vw';
-    popup.style.height = '100vh';
-    popup.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-    popup.style.display = 'flex';
-    popup.style.alignItems = 'center';
-    popup.style.justifyContent = 'center';
-    popup.style.zIndex = '1000';
-  
-    // 阻止点击弹窗内的图片时关闭弹窗
-    popup.addEventListener('click', hidePopup);
-  
-    const img = document.createElement('img');
-    img.src = url;
-    img.style.maxWidth = '90%';
-    img.style.maxHeight = '90%';
-    img.style.zIndex = '1001';
-  
-    // 点击图片时阻止事件冒泡，避免关闭弹窗
-    img.addEventListener('click', event => {
-      event.stopPropagation();
-    });
-  
-    popup.appendChild(img);
-    document.body.appendChild(popup);
-  }
-  
-  // 隐藏弹窗的功能
-  function hidePopup() {
-    const popup = document.getElementById('popup');
-    if (popup) {
-      popup.remove();
-    }
-  }
-  
-  
+}
+
+
+document.addEventListener('DOMContentLoaded', loadPhotos);
+
+
+
