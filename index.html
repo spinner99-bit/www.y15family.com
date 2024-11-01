@@ -12,19 +12,19 @@
   <link rel="canonical" href="https://www.y15family.com">
 </head>
 <body>
+  
   <div class="header">
     <div class="headerDiv">
       <div class="headerLeftMenu">
         <button id="toggleMenu" class="menu-btn"><i class='bx bx-menu'></i></button>
       </div>
-      <div class="siteLogBtn">
-        <button id="loginBtn" class="logBtn"><a href="login.html" class="logBtn2">LOG MASUK</a></button>
-        <button id="registerBtn" class="regBtn"><a href="login.html" class="regBtn2">BUAT AKAUN</a></button>
-        <button id="welcomeUser" class="WelBtn" style="display:none;">Username</button>
-        <button id="logoutBtn" class="LogBtn" style="display:none;">LOG KELUAR</button>
-      </div>
+      <a class="siteLogBtn" href="profile">
+        <button id="loginBtn" class="logBtn2">LOG MASUK</button>
+        <i class='bx bxs-user-x'></i>
+      </a>
     </div>
   </div>
+  
 
   <div id="sideMenu" class="side-menu">
     <div class="closeBtnDiv">
@@ -91,6 +91,12 @@
           <div class="per-menu-row-cover">
             <i class='bx bxs-bar-chart-alt-2'></i>
             <p>PAID REVIEW</p>
+          </div>
+        </a></li>
+        <li id="logoutBtn"><a href="#">
+          <div class="per-menu-row-cover">
+            <i class='bx bx-log-out-circle' ></i>
+            <p>LOG KELUAR</p>
           </div>
         </a></li>
       </ul>
