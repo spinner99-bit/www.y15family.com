@@ -453,7 +453,6 @@ body {
 }
 
 .paidReview-Per-form {
-  max-width: 500px;
   margin: 20px auto;
   display: grid;
 }
@@ -543,6 +542,11 @@ body {
 }
 
 @media (max-width: 768px) {
+  .paidReview-Cover form{
+    width: auto;
+    margin: 0 20px;
+  }
+  
   .paidReview-Per-form {
     max-width: 300px;
   }
@@ -630,8 +634,9 @@ body {
 
 @media (max-width: 768px) {
   .upload-wrapper form {
-    width: 350px;
+    width: auto;
     padding: 20px;
+    margin: 0 20px;
   }
 }
 
@@ -790,7 +795,8 @@ body {
 
 .photo-image {
   width: 100%;
-  height: 370px;
+  height: auto; /* 让高度自适应宽度，以保持原始比例 */
+  aspect-ratio: 1; /* 强制高度与宽度保持 1:1 比例 */
   object-fit: cover;
 }
 
