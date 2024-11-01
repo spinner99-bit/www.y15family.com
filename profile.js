@@ -2,8 +2,6 @@ const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzw3wYdDmCjljEwQ
 
 document.addEventListener("DOMContentLoaded", function() {
   const loginBtn = document.getElementById("loginBtn");
-  const registerBtn = document.getElementById("registerBtn");
-  const welcomeUserBtn = document.getElementById("welcomeUser");
   const logoutBtn = document.getElementById("logoutBtn");
   const editProfileBtn = document.getElementById('editProfileBtn');
   const saveProfileBtn = document.getElementById('saveProfileBtn');
@@ -15,26 +13,24 @@ document.addEventListener("DOMContentLoaded", function() {
   const editFullNameInput = document.getElementById('editFullName');
   const editWanumberInput = document.getElementById('editWanumber');
   const editInstaIDInput = document.getElementById('editInstaID');
+  const userStatusIcon = document.querySelector('.siteLogBtn i'); // 获取用户状态图标
 
-  // 检测登录状态
-  const username = localStorage.getItem("username"); // 从浏览器存储中获取用户名
-  // const walletAmount = localStorage.getItem("walletAmount");
+ // 检测登录状态
+ const username = localStorage.getItem("username"); // 从浏览器存储中获取用户名
+ // const walletAmount = localStorage.getItem("walletAmount");
+  
+ // 检测登录状态
+ if (username) {
+  loginBtn.innerHTML = `${username}`; // 将登录按钮的内容更改为用户名
+  loginBtn.classList.add('welcomeUser');
+  logoutBtn.style.display = "inline-block";
 
-  if (username) {
-    // 如果已登录
-    loginBtn.style.display = "none";
-    registerBtn.style.display = "none";
-    welcomeUserBtn.style.display = "inline-block";
-    logoutBtn.style.display = "inline-block";
-    welcomeUserBtn.innerText = `${username}`;
+  // 更新图标为已登录状态
+  userStatusIcon.classList.remove('bxs-user-x');
+  userStatusIcon.classList.add('bxs-user-check');
 
-    // 点击 welcomeUser 按钮后跳转到 profile.html
-    welcomeUserBtn.addEventListener("click", function() {
-      window.location.href = "profile.html";
-    });
-
-    // 登出按钮功能
-    logoutBtn.addEventListener("click", function() {
+  // 登出按钮功能
+  logoutBtn.addEventListener("click", function() {
       // 清除所有用户相关的信息
       localStorage.removeItem("username");
       localStorage.removeItem("password");
@@ -44,14 +40,15 @@ document.addEventListener("DOMContentLoaded", function() {
       localStorage.removeItem("walletAmount");
 
       location.reload(); // 刷新页面
-    });
-  } else {
-    // 如果未登录
-    loginBtn.style.display = "inline-block";
-    registerBtn.style.display = "inline-block";
-    welcomeUserBtn.style.display = "none";
-    logoutBtn.style.display = "none";
-  }
+  });
+} else {
+  loginBtn.innerHTML = "LOG MASUK"; // 设置默认内容
+  logoutBtn.style.display = "none";
+
+  // 更新图标为未登录状态
+  userStatusIcon.classList.remove('bxs-user-check');
+  userStatusIcon.classList.add('bxs-user-x');
+}
 
   // 侧边栏菜单的切换功能
   document.getElementById('toggleMenu').addEventListener('click', function() {
