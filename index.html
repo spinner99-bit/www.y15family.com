@@ -104,17 +104,25 @@
   <div class="membersGallery-Top">
     <h1 class="membersGallery-Top-1">Y15 FAMILY MEMBERS GALLERY</h1>
     <p class="membersGallery-Top-2">Jangan Lupe Follow Like & Share Instagram Members Kami ！</p>
+    <div class="membersGallery-addPost-Button">
+      <button onclick="toggleUpload()"><i class='bx bxs-image-add'></i>Post Foto Anda</button>
+    </div>
   </div>
 
-  <div class="membersGallery-Upload">
+  <div class="membersGallery-Upload" id="uploadOverlay" style="display: none;">
     <div class="membersGallery-Upload-Div">
       <h1>POST FOTO ANDA DI SINI</h1>
       <div class="membersGallery-Upload-container">
-        <input type="file" id="photoInput" accept="image/*">
-        <button id="uploadBtn" onclick="uploadPhoto()">POST</button>
+        <input type="file" id="photoInput" accept="image/*" onchange="previewPhoto()">
+        <img id="photoPreview" style="display: none; width: 100%; margin-top: 10px;" alt="Photo Preview">
+        <div class="membersGallery-UploadForm-Button">
+          <button onclick="toggleUpload()">Tutup</button>
+          <button id="uploadBtn" onclick="uploadPhoto()">POST</button>
+        </div>
       </div>
     </div>
   </div>
+  
 
   <div id="photoGallery" class="photo-gallery">
     <!-- Images will be loaded here -->
