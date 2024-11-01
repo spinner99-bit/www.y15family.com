@@ -7,29 +7,8 @@
 }
 
 body {
-  margin: 0; /* 移除默认边距 */
+  background-color: black;
   margin-top: 80px;
-}
-
-body::before {
-  content: "";
-  position: fixed; /* 使用固定定位 */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('Element/Background.jpg');
-  background-size: cover; /* 确保背景覆盖整个视口 */
-  background-repeat: no-repeat;
-  background-position: center; /* 水平和垂直居中 */
-  z-index: -1; /* 确保背景在内容后面 */
-}
-
-@media (max-width: 768px) {
-  body::before {
-    background-image: url('Element/Background.jpg');
-    background-position: center; /* 水平和垂直居中 */
-  }
 }
 
 .headerDiv {
@@ -662,6 +641,7 @@ body::before {
   text-align: center;
   align-items: center;
   margin-top: 30px;
+  margin-bottom: 20px;
 }
 
 .membersGallery-Top-1{
@@ -674,34 +654,88 @@ body::before {
   color: white;
 }
 
-.membersGallery-Upload{
+.membersGallery-addPost-Button{
+  margin-top: 15px;
   display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.membersGallery-addPost-Button button{
+  background-color: #fbbc04;
+  color: black;
+  border-radius: 10px;
+  border: 1px solid black;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.membersGallery-addPost-Button i{
+  font-size: 30px;
+}
+
+.membersGallery-Upload {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8); /* 半透明背景 */
   justify-content: center;
   align-items: center;
+  z-index: 1000; /* 使其覆盖在所有内容上层 */
+}
+
+.membersGallery-Upload-Div {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
   text-align: center;
-  padding: 10px;
+  max-width: 90%;
+  max-height: 80%;
+  overflow-y: auto;
 }
 
 .membersGallery-Upload-Div h1{
-  color: white;
   font-size: 26px;
 }
 
-.membersGallery-Upload-container{
-  margin: 15px 0;
+.membersGallery-Upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.membersGallery-Upload-container input{
-  color: white;
+#photoInput {
+  font-size: 22px; /* 设置文字大小 */
+  width: 100%;
 }
 
-.membersGallery-Upload-container button{
+.membersGallery-UploadForm-Button{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.membersGallery-UploadForm-Button button{
   padding: 10px 20px;
-  border-radius: 20px;
-  border: 3px solid black;
+  font-size: 18px;
+  border-radius: 15px;
+  background-color: red;
+  color: white;
+  border: 1px solid #ccc;
+}
+
+#uploadBtn{
   background-color: #fbbc04;
   color: black;
 }
+
 
 .memberGalarry-wrapper{
   display: grid;
@@ -718,50 +752,87 @@ body::before {
 
 .photo-card {
   position: relative;
-  background-color: transparent;
-  border: 3px solid #fbbc04;
-  border-radius: 15px;
-  overflow: hidden;
   width: 370px;
-  height: 370px;
   margin: 10px;
+  background-color: #333;
   color: #fff;
-  align-content: center;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
-.photo-card img {
-  max-width: 100%;
-  max-height: 100%;
+.top-section, .bottom-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.photo-card i{
+  font-size: 26px;
+}
+
+.user-icon {
+  width: 26px; /* 根据需要调整大小 */
+  height: 26px;
+  border-radius: 50%; /* 如果希望图片呈圆形 */
+}
+
+.top-section i, .bottom-section i {
+  cursor: pointer;
+}
+
+.top-section span, .bottom-section span {
+  font-size: 1em;
+  color: white;
+}
+
+.photo-image {
+  width: 100%;
+  height: 370px;
   object-fit: cover;
 }
 
-.photo-card p {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background-color: #fbbc04;
-  color: black;
-  text-align: center;
-  padding: 6px 0;
-  font-size: 1.1em;
-}
-
 @media (max-width: 768px) {
+  .membersGallery-Upload-Div{
+    padding: 10px;
+  }
+  .membersGallery-Upload-Div h1{
+    font-size: 18px;
+  }
+  #photoInput{
+    font-size: 14px;
+  }
+  .membersGallery-UploadForm-Button button{
+    font-size: 12px;
+    padding: 7px 15px;
+  }
+  .membersGallery-Top-1{
+    font-size: 16px;
+  }
+  .membersGallery-Top-2{
+    font-size: 12px;
+  }
   .photo-card{
-    width: 90%;
-    height: 400px;
+    width: 100%;
     margin: 5px;
   }
-
-  .photo-card img{
-    margin-bottom: 18px;
+  .membersGallery-addPost-Button{
+    margin-top: 10px;
   }
-
-  .photo-card p{
-    padding: 4px 0;
+  .membersGallery-addPost-Button button{
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+  }
+  .membersGallery-addPost-Button i{
+    font-size: 20px;
+  }
+  .bottom-section span{
     font-size: 12px;
+  }
+  .bottom-section{
+    padding: 5px 10px;
   }
 }
