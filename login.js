@@ -42,7 +42,7 @@ async function submitRegister() {
   if (wanumber.startsWith('1')) {
     wanumber = '60' + wanumber; // 如果以1开头，添加60
   } else if (wanumber.startsWith('0')) {
-    wanumber = '6' + wanumber.substring(1); // 如果以0开头，添加6并去掉前面的0
+    wanumber = '6' + wanumber; // 如果以0开头，添加6并保留0
   } else if (!wanumber.startsWith('6')) {
     // 如果不是以6开头的其他情况，可以根据需要处理
     console.warn('Wasap number must start with 6, 0, or 1.');
