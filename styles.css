@@ -58,17 +58,33 @@ body {
   color: black;
 }
 
-.siteLogBtn button{
+.logBtn2{
   cursor: pointer;
   border: none;
-  background-color: transparent;
+  background-color: black;
   font-size: 16px;
   font-weight: 900;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+.welcomeUser{
+  background-color: transparent;
+  color: black;
+  padding: 0;
 }
 
 .siteLogBtn i{
   font-size: 30px;
   margin-left: 5px;
+}
+
+@media (max-width: 768px) {
+  .logBtn2{
+    font-size: 14px;
+  }
 }
 
 .side-menu {
