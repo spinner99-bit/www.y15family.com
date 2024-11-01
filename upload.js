@@ -65,6 +65,14 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("requestForm").addEventListener("submit", function(event) {
       event.preventDefault(); // 阻止表单默认提交
 
+      // 检查用户是否已登录
+      const username = localStorage.getItem("username");
+      if (!username) {
+          alert('Anda perlu login terlebih dahulu!'); // 提示用户未登录
+          window.location.href = 'login.html'; // 跳转到登录页面
+          return; // 退出提交处理
+      }
+
       // 获取 IG 链接内容
       const igLink = document.getElementById("igLink").value;
 
@@ -103,6 +111,7 @@ document.addEventListener("DOMContentLoaded", function() {
       });
   });
 });
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
